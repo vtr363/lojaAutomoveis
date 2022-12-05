@@ -21,8 +21,6 @@ public class Teste {
 		
 		if (automovel.consultarAuto(codigo, fabricante, modelo)) {
 			System.out.println("veiculo encontrado");
-		}else {
-			System.out.println("Nao encontrado");
 		}
 		
 		sc.close();
