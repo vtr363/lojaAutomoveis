@@ -15,14 +15,19 @@ public class Teste {
 		
 		System.out.println("Digite o codigo");
 		codigo = Integer.parseInt(sc.nextLine());
-		fabricante = sc.nextLine();
-		modelo = sc.nextLine();
 		
 		
-		if (automovel.consultarAuto(codigo, fabricante, modelo)) {
+		
+		if (automovel.consultar(codigo)) {
+			
 			System.out.println("veiculo encontrado");
+			System.out.println(automovel.getFabricante());
+			System.out.println(automovel.getModelo());
+			System.out.println(automovel.getPreco());
+			
 		}
 		
 		sc.close();
 	}
 }
+

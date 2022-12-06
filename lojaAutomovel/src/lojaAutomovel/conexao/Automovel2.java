@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Automovel {
+public class Automovel2 {
 	private int codigo;
 	private String fabricante;
 	private String modelo;
@@ -65,7 +65,6 @@ public class Automovel {
 			Conexao.fechaConexao(conexao);
 		}
 	}
-	
 	
 	public boolean consultarAuto(int codigo, String fabricante, String modelo) {
 		// Define a conex�o
@@ -165,38 +164,5 @@ public class Automovel {
 	}
 	
 	
-	public boolean consultar(int codigo) {
-		// Define a conexão
-		Connection conexao = null;
-		try {
-			conexao = Conexao.conectaBanco();
-			// Define a consulta
-			String sql = "select * from automovel where codigo=? ";
-			// Prepara a consulta
-			PreparedStatement ps = conexao.prepareStatement(sql);
-			// Define os par�metros da consulta
-			ps.setInt(1, codigo); // Substitui o primeiro par�metro da consulta pela ag�ncia informada
-			// Executa a consulta, resultando em um objeto da classe ResultSet
-			ResultSet rs = ps.executeQuery();
-			if (!rs.isBeforeFirst()) { // Verifica se n�o est� antes do primeiro registro
-				System.out.println("Automovel nao cadastrado!");
-				return false; // Automovel n�o cadastrada
-			} else {
-				// Efetua a leitura do registro da tabela
-				while (rs.next()) {
-					this.codigo = rs.getInt("codigo");
-					this.fabricante = rs.getString("fabricante");
-					this.modelo = rs.getString("modelo");
-					this.preco = rs.getDouble("preco");
-				}
-				return true;
-			}
-		} catch (SQLException erro) {
-			System.out.println("Erro ao consultar o automovel: " + erro.toString());
-			return false;
-		} finally {
-			Conexao.fechaConexao(conexao);
-		}
 
-}
 }

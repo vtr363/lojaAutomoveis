@@ -36,20 +36,21 @@ public class Cliente {
 		this.estado = estado;
 	}
 	
+	
 	public boolean cadastrarCliente(String cpf, String nome , String cidade, String estado) {
 		// Define a conex�o
 		Connection conexao = null;
 		try {
 			conexao = Conexao.conectaBanco();
 			// Define a consulta
-			String sql = "insert into cliente set cpf=?, nome=?, cidade=?, estado=?;";
+			String sql = "insert into cliente(nome, cpf, cidade, estado) Values(?, ?, ?, ?)";
 			// Prepara a consulta
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			// Define os par�metros da consulta
-			ps.setString(1, cpf); // Substitui o primeiro par�metro da consulta pela ag�ncia informada
-			ps.setString(2, nome); // Substitui o segundo par�metro da consulta pela conta informada
+			ps.setString(1, nome); // Substitui o primeiro par�metro da consulta pela ag�ncia informada
+			ps.setString(2, cpf); // Substitui o segundo par�metro da consulta pela conta informada
 			ps.setString(3, cidade); // Substitui o terceiro par�metro da consulta pelo titular informado
-			ps.setString(2, estado);
+			ps.setString(4, estado);
 			int totalRegistrosAfetados = ps.executeUpdate();
 			if (totalRegistrosAfetados == 0) {
 				System.out.println("N�o foi feito o cadastro!!");
@@ -99,7 +100,7 @@ public class Cliente {
 		}
 	}
 	
-	public boolean atualizarCliente(String cpf, String cidade, String estado) {
+	public boolean atualizarCliente(String nome, String cpf, String cidade, String estado) {
 		if (!consultarCliente(cpf))
 			return false;
 		else {
@@ -131,4 +132,3 @@ public class Cliente {
 		}
 	}
 }
-
