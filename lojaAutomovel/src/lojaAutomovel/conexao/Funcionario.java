@@ -42,7 +42,7 @@ public class Funcionario {
 		try {
 			conexao = Conexao.conectaBanco();
 			// Define a consulta
-			String sql = "insert into funcionario set nome=?, cpf=?, matricula=?, cargo=?;";
+			String sql = "insert into funcionario(nome, cpf, matricula, cargo) values(?, ?, ?, ?);";
 			// Prepara a consulta
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			// Define os par�metros da consulta
@@ -52,7 +52,7 @@ public class Funcionario {
 			ps.setString(4, cargo); // Substitui o terceiro par�metro da consulta pelo titular informado
 			int totalRegistrosAfetados = ps.executeUpdate();
 			if (totalRegistrosAfetados == 0) {
-				System.out.println("N�o foi feito o cadastro!!");
+				System.out.println("Não foi feito o cadastro!!");
 				return false;
 			}
 			System.out.println("Cadastro realizado!");
@@ -100,8 +100,8 @@ public class Funcionario {
 		}
 	}
 	
-	public boolean atualizarFuncionario(String cargo, String matricula) {
-		if (!consultarFuncionario(cpf))
+	public boolean atualizarFuncionario(String nome, String cpf, String matricula, String cargo) {
+		if (!consultarFuncionario(matricula))
 			return false;
 		else {
 			// Define a conex�o
@@ -110,12 +110,14 @@ public class Funcionario {
 				// Define a conex�o
 				conexao = Conexao.conectaBanco();
 				// Define a consulta
-				String sql = "update funcionario set cargo=? where matricula=?";
+				String sql = "update funcionario set nome=?, cpf=?, cargo=? where matricula=?";
 				// Prepara a consulta
 				PreparedStatement ps = conexao.prepareStatement(sql);
 				// Define os par�metros da atualiza��o
-				ps.setString(1, cargo);
-				ps.setString(2, matricula);
+				ps.setString(1, nome);
+				ps.setString(2, cpf);// Substitui o primeiro par�metro da consulta pela ag�ncia informada
+				ps.setString(3, cargo); // Substitui o segundo par�metro da consulta pela conta informada
+				ps.setString(4, matricula);
 				int totalRegistrosAfetados = ps.executeUpdate();
 				if (totalRegistrosAfetados == 0)
 					System.out.println("N�o foi feita a atualizacao!");

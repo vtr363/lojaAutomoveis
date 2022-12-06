@@ -16,6 +16,8 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import lojaAutomovel.conexao.Cliente;
+import lojaAutomovel.conexao.Funcionario;
+import lojaAutomovel.conexao.Automovel;
 
 
 public class Telas {
@@ -325,6 +327,59 @@ public class Telas {
 						botaoCadastrar.setBounds(300, 100, 100, 20);
 						janelaFuncionarios.add(botaoCadastrar);	
 						
+						Funcionario funcionario = new Funcionario();
+						
+						botaoConsultar.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								try {
+									if(!funcionario.consultarFuncionario(jTextMatricula.getText())) {
+										JOptionPane.showMessageDialog(janelaFuncionarios,
+												"Funcionario não encontrado, tente novamente.");
+									}else {
+										
+										jTextMatricula.setText(funcionario.getMatricula());
+										jTextCargo.setText(funcionario.getCargo());
+										jTextNome.setText(funcionario.getNome());
+										jTextCPF.setText(funcionario.getCpf());
+										JOptionPane.showMessageDialog(janelaFuncionarios,
+												"Funcionario encontrado!");
+									}
+									
+								} catch (Exception e2) {
+									// TODO: handle exception
+								}
+							}
+						});
+						
+						botaoAtualizar.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								try {
+									if(!funcionario.atualizarFuncionario(jTextNome.getText() ,jTextCPF.getText(), jTextMatricula.getText(), jTextCargo.getText())) {
+										JOptionPane.showMessageDialog(janelaFuncionarios, "Não foi possivel atualizar o fincionario");
+									}else {
+										JOptionPane.showMessageDialog(janelaFuncionarios, "Atualização realizada");
+									}
+									
+								} catch (Exception e2) {
+									// TODO: handle exception
+								}
+							}
+						});
+						
+						botaoCadastrar.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								try {
+									if(!funcionario.consultarFuncionario(jTextMatricula.getText())) {
+										funcionario.cadastrarFuncionario(jTextNome.getText(), jTextCPF.getText(), jTextMatricula.getText(), jTextCargo.getText());
+										JOptionPane.showMessageDialog(janelaFuncionarios, "Cadastrado realizado!");
+									}else {
+										JOptionPane.showMessageDialog(janelaFuncionarios, "Funcionario ja cadastrado");
+									}
+								} catch (Exception e2) {
+									// TODO: handle exception
+								}
+							}
+						});
 			
 					return janelaFuncionarios;
 				}
