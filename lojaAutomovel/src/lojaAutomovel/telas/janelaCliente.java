@@ -74,6 +74,7 @@ public class janelaCliente {
 							JButton botaoAtualizar = new JButton("Atualizar");
 							botaoAtualizar.setBounds(300, 70, 100, 20);
 							janelaClientes.add(botaoAtualizar);	
+							botaoAtualizar.setEnabled(false);
 							
 							JButton botaoCadastrar = new JButton("Cadastrar");
 							botaoCadastrar.setBounds(300, 100, 100, 20);
@@ -98,6 +99,7 @@ public class janelaCliente {
 											jTextNome.setText(cliente.getNome());
 											JOptionPane.showMessageDialog(janelaClientes,
 													"Cliente encontrado!");
+											botaoAtualizar.setEnabled(true);
 										}
 										
 									} catch (Exception e2) {
@@ -109,10 +111,13 @@ public class janelaCliente {
 							botaoAtualizar.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
 									try {
-										if(!cliente.atualizarCliente(jTextNome.getText() ,jTextCPF.getText(), jTextCidade.getText(), jTextEstado.getText())) {
-											JOptionPane.showMessageDialog(janelaClientes, "Não foi possivel atualizar o cliente");
-										}else {
-											JOptionPane.showMessageDialog(janelaClientes, "Atualização realizada");
+										if(JOptionPane.showConfirmDialog(janelaFuncionarios, "Tem Certeza?") == 0) {
+											
+											if(!cliente.atualizarCliente(jTextNome.getText() ,jTextCPF.getText(), jTextCidade.getText(), jTextEstado.getText())) {
+												JOptionPane.showMessageDialog(janelaClientes, "Não foi possivel atualizar o cliente");
+											}else {
+												JOptionPane.showMessageDialog(janelaClientes, "Atualização realizada");
+											}
 										}
 										
 									} catch (Exception e2) {
@@ -124,10 +129,13 @@ public class janelaCliente {
 							botaoCadastrar.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
 									try {
-										if(!cliente.consultarCliente(jTextCPF.getText())) {
-											cliente.cadastrarCliente(jTextCPF.getText(), jTextNome.getText(), jTextCidade.getText(), jTextEstado.getText());
-										}else {
-											JOptionPane.showMessageDialog(janelaClientes, "Usuario ja cadastrado");
+										if(JOptionPane.showConfirmDialog(janelaClientes, "Tem Certeza?") == 0) {
+											
+											if(!cliente.consultarCliente(jTextCPF.getText())) {
+												cliente.cadastrarCliente(jTextCPF.getText(), jTextNome.getText(), jTextCidade.getText(), jTextEstado.getText());
+											}else {
+												JOptionPane.showMessageDialog(janelaClientes, "Usuario ja cadastrado");
+											}
 										}
 									} catch (Exception e2) {
 										// TODO: handle exception
@@ -137,12 +145,15 @@ public class janelaCliente {
 						
 							botaoLimpar.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
-									jTextNome.setText(""); // Limpar campo
-									jTextCPF.setText(""); // Limpar campo
-									jTextCidade.setText(""); // Limpar campo
-									jTextEstado.setText("");
-									
-									jTextCPF.requestFocus(); // Colocar o foco em um campo
+									if(JOptionPane.showConfirmDialog(janelaClientes, "Tem Certeza?") == 0) {
+										
+										jTextNome.setText(""); // Limpar campo
+										jTextCPF.setText(""); // Limpar campo
+										jTextCidade.setText(""); // Limpar campo
+										jTextEstado.setText("");
+										
+										jTextCPF.requestFocus(); // Colocar o foco em um campo
+									}
 								}
 							});
 							

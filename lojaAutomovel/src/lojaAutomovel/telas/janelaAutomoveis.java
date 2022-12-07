@@ -77,6 +77,7 @@ public class janelaAutomoveis {
 				JButton botaoAtualizar = new JButton("Atualizar");
 				botaoAtualizar.setBounds(300, 70, 100, 20);
 				janelaAutomoveis.add(botaoAtualizar);	
+				botaoAtualizar.setEnabled(false);
 				
 				JButton botaoCadastrar = new JButton("Cadastrar");
 				botaoCadastrar.setBounds(300, 100, 100, 20);
@@ -107,6 +108,7 @@ public class janelaAutomoveis {
 								jTextpreco.setText(Double.toString(automovel.getPreco()));
 								JOptionPane.showMessageDialog(janelaAutomoveis,
 										"Automovel encontrado!");
+								botaoAtualizar.setEnabled(true);
 							}
 							
 						} catch (Exception e2) {
@@ -118,10 +120,13 @@ public class janelaAutomoveis {
 				botaoAtualizar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
-							if(!automovel.atualizarAuto(Integer.parseInt(jTextcodigo.getText()) ,jTextfabricante.getText(), jTextmodelo.getText(), Double.parseDouble(jTextpreco.getText()))) {
-								JOptionPane.showMessageDialog(janelaAutomoveis, "Não foi possivel atualizar o cliente");
-							}else {
-								JOptionPane.showMessageDialog(janelaAutomoveis, "Atualização realizada");
+							if(JOptionPane.showConfirmDialog(janelaAutomoveis, "Tem Certeza?") == 0) {
+								if(!automovel.atualizarAuto(Integer.parseInt(jTextcodigo.getText()) ,jTextfabricante.getText(), jTextmodelo.getText(), Double.parseDouble(jTextpreco.getText()))) {
+									JOptionPane.showMessageDialog(janelaAutomoveis, "Não foi possivel atualizar o cliente");
+								}else {
+									JOptionPane.showMessageDialog(janelaAutomoveis, "Atualização realizada");
+								}
+								
 							}
 							
 						} catch (Exception e2) {
@@ -133,10 +138,12 @@ public class janelaAutomoveis {
 				botaoCadastrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
-							if(!automovel.consultarAuto(Integer.parseInt(jTextcodigo.getText()))) {
-								automovel.cadastrarAuto(Integer.parseInt(jTextcodigo.getText()), jTextfabricante.getText(), jTextmodelo.getText(), Double.parseDouble(jTextpreco.getText()));
-							}else {
-								JOptionPane.showMessageDialog(janelaAutomoveis, "Veiculo já cadastrado");
+							if(JOptionPane.showConfirmDialog(janelaAutomoveis, "Tem Certeza?") == 0) {
+								if(!automovel.consultarAuto(Integer.parseInt(jTextcodigo.getText()))) {
+									automovel.cadastrarAuto(Integer.parseInt(jTextcodigo.getText()), jTextfabricante.getText(), jTextmodelo.getText(), Double.parseDouble(jTextpreco.getText()));
+								}else {
+									JOptionPane.showMessageDialog(janelaAutomoveis, "Veiculo já cadastrado");
+								}
 							}
 						} catch (Exception e2) {
 							// TODO: handle exception
@@ -146,28 +153,31 @@ public class janelaAutomoveis {
 				Negocio negocio = new Negocio();
 				botaoVender.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if (automovel.consultarAuto(Integer.parseInt(jTextcodigo.getText()))){
-								if(!negocio.consultarNegocio(jTextcodigo.getText())) {
-									JFrame janelaVenda = janelaVendas.CriarJanelaVenda(automovel);
-									janelaVenda.setVisible(true);
-								}else {
-									JOptionPane.showMessageDialog(janelaAutomoveis, "Veiculo indisponível");
-								}
-						}else {
-							JOptionPane.showMessageDialog(janelaAutomoveis, "Veiculo Não encontrado");
+						if(JOptionPane.showConfirmDialog(janelaAutomoveis, "Tem Certeza?") == 0) {
+							if (automovel.consultarAuto(Integer.parseInt(jTextcodigo.getText()))){
+									if(!negocio.consultarNegocio(jTextcodigo.getText())) {
+										JFrame janelaVenda = janelaVendas.CriarJanelaVenda(automovel);
+										janelaVenda.setVisible(true);
+									}else {
+										JOptionPane.showMessageDialog(janelaAutomoveis, "Veiculo indisponível");
+									}
+							}else {
+								JOptionPane.showMessageDialog(janelaAutomoveis, "Veiculo Não encontrado");
+							}
 						}
 					}
-
 				});
 				
 				botaoLimpar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						jTextcodigo.setText(""); // Limpar campo
-						jTextfabricante.setText(""); // Limpar campo
-						jTextmodelo.setText(""); // Limpar campo
-						jTextpreco.setText("");
-						
-						jTextcodigo.requestFocus(); // Colocar o foco em um campo
+						if(JOptionPane.showConfirmDialog(janelaAutomoveis, "Tem Certeza?") == 0) {
+							jTextcodigo.setText(""); // Limpar campo
+							jTextfabricante.setText(""); // Limpar campo
+							jTextmodelo.setText(""); // Limpar campo
+							jTextpreco.setText("");
+							
+							jTextcodigo.requestFocus(); // Colocar o foco em um campo
+						}
 					}
 				});
 				

@@ -72,6 +72,7 @@ public class janelaFuncionario {
 			JButton botaoAtualizar = new JButton("Atualizar");
 			botaoAtualizar.setBounds(300, 70, 100, 20);
 			janelaFuncionarios.add(botaoAtualizar);	
+			botaoAtualizar.setEnabled(false);
 			
 			JButton botaoCadastrar = new JButton("Cadastrar");
 			botaoCadastrar.setBounds(300, 100, 100, 20);
@@ -87,17 +88,21 @@ public class janelaFuncionario {
 			botaoConsultar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					try {
-						if(!funcionario.consultarFuncionario(jTextMatricula.getText())) {
-							JOptionPane.showMessageDialog(janelaFuncionarios,
-									"Funcionario não encontrado, tente novamente.");
-						}else {
+						if(JOptionPane.showConfirmDialog(janelaFuncionarios, "Tem Certeza?") == 0) {
 							
-							jTextMatricula.setText(funcionario.getMatricula());
-							jTextCargo.setText(funcionario.getCargo());
-							jTextNome.setText(funcionario.getNome());
-							jTextCPF.setText(funcionario.getCpf());
-							JOptionPane.showMessageDialog(janelaFuncionarios,
-									"Funcionario encontrado!");
+							if(!funcionario.consultarFuncionario(jTextMatricula.getText())) {
+								JOptionPane.showMessageDialog(janelaFuncionarios,
+										"Funcionario não encontrado, tente novamente.");
+							}else {
+								
+								jTextMatricula.setText(funcionario.getMatricula());
+								jTextCargo.setText(funcionario.getCargo());
+								jTextNome.setText(funcionario.getNome());
+								jTextCPF.setText(funcionario.getCpf());
+								JOptionPane.showMessageDialog(janelaFuncionarios,
+										"Funcionario encontrado!");
+								botaoAtualizar.setEnabled(true);
+							}
 						}
 						
 					} catch (Exception e2) {
@@ -109,10 +114,13 @@ public class janelaFuncionario {
 			botaoAtualizar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					try {
-						if(!funcionario.atualizarFuncionario(jTextNome.getText() ,jTextCPF.getText(), jTextMatricula.getText(), jTextCargo.getText())) {
-							JOptionPane.showMessageDialog(janelaFuncionarios, "Não foi possivel atualizar o fincionario");
-						}else {
-							JOptionPane.showMessageDialog(janelaFuncionarios, "Atualização realizada");
+						if(JOptionPane.showConfirmDialog(janelaFuncionarios, "Tem Certeza?") == 0) {
+							
+							if(!funcionario.atualizarFuncionario(jTextNome.getText() ,jTextCPF.getText(), jTextMatricula.getText(), jTextCargo.getText())) {
+								JOptionPane.showMessageDialog(janelaFuncionarios, "Não foi possivel atualizar o fincionario");
+							}else {
+								JOptionPane.showMessageDialog(janelaFuncionarios, "Atualização realizada");
+							}
 						}
 					} catch (Exception e2) {
 						// TODO: handle exception
@@ -123,11 +131,14 @@ public class janelaFuncionario {
 			botaoCadastrar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					try {
-						if(!funcionario.consultarFuncionario(jTextMatricula.getText())) {
-							funcionario.cadastrarFuncionario(jTextNome.getText(), jTextCPF.getText(), jTextMatricula.getText(), jTextCargo.getText());
-							JOptionPane.showMessageDialog(janelaFuncionarios, "Cadastrado realizado!");
-						}else {
-							JOptionPane.showMessageDialog(janelaFuncionarios, "Funcionario ja cadastrado");
+						if(JOptionPane.showConfirmDialog(janelaFuncionarios, "Tem Certeza?") == 0) {
+							
+							if(!funcionario.consultarFuncionario(jTextMatricula.getText())) {
+								funcionario.cadastrarFuncionario(jTextNome.getText(), jTextCPF.getText(), jTextMatricula.getText(), jTextCargo.getText());
+								JOptionPane.showMessageDialog(janelaFuncionarios, "Cadastrado realizado!");
+							}else {
+								JOptionPane.showMessageDialog(janelaFuncionarios, "Funcionario ja cadastrado");
+							}
 						}
 					} catch (Exception e2) {
 						// TODO: handle exception
@@ -137,12 +148,19 @@ public class janelaFuncionario {
 
 			botaoLimpar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					jTextNome.setText(""); // Limpar campo
-					jTextCPF.setText(""); // Limpar campo
-					jTextMatricula.setText(""); // Limpar campo
-					jTextCargo.setText("");
-					
-					jTextMatricula.requestFocus(); // Colocar o foco em um campo
+					try {
+						if(JOptionPane.showConfirmDialog(janelaFuncionarios, "Tem Certeza?") == 0) {
+							
+							jTextNome.setText(""); // Limpar campo
+							jTextCPF.setText(""); // Limpar campo
+							jTextMatricula.setText(""); // Limpar campo
+							jTextCargo.setText("");
+							
+							jTextMatricula.requestFocus(); // Colocar o foco em um campo
+						}
+					} catch (Exception e2) {
+						// TODO: handle exception
+					}
 				}
 			});
 			

@@ -75,6 +75,8 @@ public class janelaVendas {
 				janelaVenda.add(labelData);
 				janelaVenda.add(jTextData);
 				
+				jTextCodigo.setEditable(false);
+				
 				jTextCodigo.setText(Integer.toString(automovel.getCodigo()));
 				
 				JButton botaoConfirmacaoButton = new JButton("Confirmar");
@@ -88,14 +90,18 @@ public class janelaVendas {
 				botaoConfirmacaoButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
-							if(cliente.consultarCliente(jTextCpf.getText())) {
-								if(funcionario.consultarFuncionario(jTextMatricula.getText())) {
-									negocio.cadastrarNegocio(jTextCpf.getText(), jTextMatricula.getText(), automovel.getCodigo(), jTextData.getText(), Double.parseDouble(jTextPreco.getText()));
+							if(JOptionPane.showConfirmDialog(janelaVenda, "Tem Certeza?") == 0) {
+								
+								if(cliente.consultarCliente(jTextCpf.getText())) {
+									if(funcionario.consultarFuncionario(jTextMatricula.getText())) {
+										negocio.cadastrarNegocio(jTextCpf.getText(), jTextMatricula.getText(), automovel.getCodigo(), jTextData.getText(), Double.parseDouble(jTextPreco.getText()));
+										janelaVenda.dispose();
+									}else {
+										JOptionPane.showMessageDialog(janelaVenda, "Funcionario não encontrado");
+									}
 								}else {
-									JOptionPane.showMessageDialog(janelaVenda, "Funcionario não encontrado");
+									JOptionPane.showMessageDialog(janelaVenda, "Cliente não encontrado");
 								}
-							}else {
-								JOptionPane.showMessageDialog(janelaVenda, "Cliente não encontrado");
 							}
 						} catch (Exception e2) {
 							// TODO: handle exception
