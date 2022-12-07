@@ -2,13 +2,12 @@
 
 > Tabelas SQL
 ```sql
-
 -- phpMyAdmin SQL Dump
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 07-Dez-2022 às 16:22
+-- Tempo de geração: 07-Dez-2022 às 17:26
 -- Versão do servidor: 10.4.25-MariaDB
 -- versão do PHP: 8.1.10
 
@@ -36,23 +35,24 @@ CREATE TABLE `automovel` (
   `Codigo` int(11) NOT NULL,
   `Fabricante` varchar(50) NOT NULL,
   `modelo` varchar(50) NOT NULL,
-  `preco` double NOT NULL
+  `preco` double NOT NULL,
+  `statusVenda` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `automovel`
 --
 
-INSERT INTO `automovel` (`Codigo`, `Fabricante`, `modelo`, `preco`) VALUES
-(10, 'Chevrolet', 'Zafira', 36000),
-(12, 'Chevrolet', 'Zafira', 38000),
-(13, 'Chevrolet', 'Zafira', 75000),
-(14, 'Chevrolet', 'Vectra', 45000),
-(15, 'Chevrolet', 'Vectra', 50000),
-(16, 'Chevrolet', 'Astra ', 35000),
-(17, 'Chevrolet', 'Astra ', 47000),
-(18, 'Chevrolet', 'Astra ', 52010),
-(20, 'Fiat', 'Uno', 20100);
+INSERT INTO `automovel` (`Codigo`, `Fabricante`, `modelo`, `preco`, `statusVenda`) VALUES
+(10, 'Chevrolet', 'Zafira', 36000, 0),
+(12, 'Chevrolet', 'Zafira', 38000, 0),
+(13, 'Chevrolet', 'Zafira', 75000, 0),
+(14, 'Chevrolet', 'Vectra', 45000, 0),
+(15, 'Chevrolet', 'Vectra', 50000, 0),
+(16, 'Chevrolet', 'Astra ', 35000, 0),
+(17, 'Chevrolet', 'Astra ', 47000, 0),
+(18, 'Chevrolet', 'Astra ', 52010, 0),
+(20, 'Fiat', 'Uno', 20100, 0);
 
 -- --------------------------------------------------------
 
@@ -164,6 +164,5 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
 
 ```

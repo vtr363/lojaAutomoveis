@@ -111,10 +111,6 @@ public class janelaVendas {
 						
 					}
 				});
-				
-				
-				
-			
 			return janelaVenda;
 		}
 		

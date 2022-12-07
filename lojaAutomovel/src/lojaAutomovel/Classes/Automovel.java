@@ -74,11 +74,12 @@ public class Automovel {
 		try {
 			conexao = Conexao.conectaBanco();
 			// Define a consulta
-			String sql = "select * from automovel where codigo=?";
+			String sql = "select * from automovel where codigo=? and statusVenda=?";
 			// Prepara a consulta
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			// Define os par�metros da consulta
 			ps.setInt(1, codigo);
+			ps.setInt(2, 0);
 			// Executa a consulta, resultando em um objeto da classe ResultSet
 			ResultSet rs = ps.executeQuery();
 			if (!rs.isBeforeFirst()) { // Verifica se n�o est� antes do primeiro registro
@@ -141,11 +142,12 @@ public class Automovel {
 		try {
 			conexao = Conexao.conectaBanco();
 			// Define a consulta
-			String sql = "delete from automovel where codigo=?;";
+			String sql = "update automovel set statusVenda=? where codigo=?;";
 			// Prepara a consulta
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			// Define os par�metros da consulta
-			ps.setInt(1, codigo); // Substitui o terceiro par�metro da consulta pelo titular informado
+			ps.setInt(1, 1);
+			ps.setInt(2, codigo);// Substitui o terceiro par�metro da consulta pelo titular informado
 			int totalRegistrosAfetados = ps.executeUpdate();
 			if (totalRegistrosAfetados == 0) {
 				System.out.println("N�o foi feito a remoção!!");
