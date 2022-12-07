@@ -67,19 +67,17 @@ public class Automovel {
 	}
 	
 	
-	public boolean consultarAuto(int codigo, String fabricante, String modelo) {
+	public boolean consultarAuto(int codigo) {
 		// Define a conex�o
 		Connection conexao = null;
 		try {
 			conexao = Conexao.conectaBanco();
 			// Define a consulta
-			String sql = "select * from automovel where codigo=? and fabricante=? and modelo=?";
+			String sql = "select * from automovel where codigo=?";
 			// Prepara a consulta
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			// Define os par�metros da consulta
-			ps.setInt(1, codigo); // Substitui o primeiro par�metro da consulta pela ag�ncia informada
-			ps.setString(2, fabricante); // Substitui o segundo par�metro da consulta pela conta informada
-			ps.setString(3, modelo);
+			ps.setInt(1, codigo);
 			// Executa a consulta, resultando em um objeto da classe ResultSet
 			ResultSet rs = ps.executeQuery();
 			if (!rs.isBeforeFirst()) { // Verifica se n�o est� antes do primeiro registro
@@ -104,7 +102,7 @@ public class Automovel {
 	}
 	
 	public boolean atualizarAuto(int codigo, String fabricante, String modelo, double preco) {
-		if (!consultarAuto(codigo, fabricante, modelo))
+		if (!consultarAuto(codigo))
 			return false;
 		else {
 			// Define a conex�o
@@ -136,19 +134,17 @@ public class Automovel {
 		}
 	}
 	
-	public boolean removerAuto(int codigo, String fabricante , String modelo) {
+	public boolean removerAuto(int codigo) {
 		// Define a conex�o
 		Connection conexao = null;
 		try {
 			conexao = Conexao.conectaBanco();
 			// Define a consulta
-			String sql = "delete from automovel where codigo=? and  fabricante=? and modelo=?;";
+			String sql = "delete from automovel where codigo=?;";
 			// Prepara a consulta
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			// Define os par�metros da consulta
-			ps.setInt(1, codigo); // Substitui o primeiro par�metro da consulta pela ag�ncia informada
-			ps.setString(2, fabricante); // Substitui o segundo par�metro da consulta pela conta informada
-			ps.setString(3, modelo); // Substitui o terceiro par�metro da consulta pelo titular informado
+			ps.setInt(1, codigo); // Substitui o terceiro par�metro da consulta pelo titular informado
 			int totalRegistrosAfetados = ps.executeUpdate();
 			if (totalRegistrosAfetados == 0) {
 				System.out.println("N�o foi feito a remoção!!");
@@ -158,41 +154,6 @@ public class Automovel {
 			return true;
 		} catch (SQLException erro) {
 			System.out.println("Erro ao remover automovel: " + erro.toString());
-			return false;
-		} finally {
-			Conexao.fechaConexao(conexao);
-		}
-	}
-	
-	
-	public boolean consultar(int codigo) {
-		// Define a conexão
-		Connection conexao = null;
-		try {
-			conexao = Conexao.conectaBanco();
-			// Define a consulta
-			String sql = "select * from automovel where codigo=? ";
-			// Prepara a consulta
-			PreparedStatement ps = conexao.prepareStatement(sql);
-			// Define os par�metros da consulta
-			ps.setInt(1, codigo); // Substitui o primeiro par�metro da consulta pela ag�ncia informada
-			// Executa a consulta, resultando em um objeto da classe ResultSet
-			ResultSet rs = ps.executeQuery();
-			if (!rs.isBeforeFirst()) { // Verifica se n�o est� antes do primeiro registro
-				System.out.println("Automovel nao cadastrado!");
-				return false; // Automovel n�o cadastrada
-			} else {
-				// Efetua a leitura do registro da tabela
-				while (rs.next()) {
-					this.codigo = rs.getInt("codigo");
-					this.fabricante = rs.getString("fabricante");
-					this.modelo = rs.getString("modelo");
-					this.preco = rs.getDouble("preco");
-				}
-				return true;
-			}
-		} catch (SQLException erro) {
-			System.out.println("Erro ao consultar o automovel: " + erro.toString());
 			return false;
 		} finally {
 			Conexao.fechaConexao(conexao);

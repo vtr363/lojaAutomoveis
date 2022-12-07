@@ -18,6 +18,7 @@ import javax.swing.WindowConstants;
 import lojaAutomovel.conexao.Cliente;
 import lojaAutomovel.conexao.Funcionario;
 import lojaAutomovel.conexao.Automovel;
+import lojaAutomovel.conexao.Negocio;
 
 
 public class Telas {
@@ -137,12 +138,178 @@ public class Telas {
 					JButton botaoConsultar = new JButton("Consultar");
 					botaoConsultar.setBounds(300, 40, 100, 20);
 					janelaAutomoveis.add(botaoConsultar);	
-				
-				
+					
+					JButton botaoAtualizar = new JButton("Atualizar");
+					botaoAtualizar.setBounds(300, 70, 100, 20);
+					janelaAutomoveis.add(botaoAtualizar);	
+					
+					JButton botaoCadastrar = new JButton("Cadastrar");
+					botaoCadastrar.setBounds(300, 100, 100, 20);
+					janelaAutomoveis.add(botaoCadastrar);
+					
+					JButton botaoVender = new JButton("Vender");
+					botaoCadastrar.setBounds(300, 130, 100, 20);
+					janelaAutomoveis.add(botaoCadastrar);
+					
+					Automovel automovel = new Automovel();
+					
+					botaoConsultar.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							try {
+								if(!automovel.consultarAuto(Integer.parseInt(jTextcodigo.getText()))) {
+									JOptionPane.showMessageDialog(janelaAutomoveis,
+											"Automovel não encontrado, tente novamente.");
+								}else {
+									
+									jTextcodigo.setText(Integer.toString(automovel.getCodigo()));
+									jTextfabricante.setText(automovel.getFabricante());
+									jTextmodelo.setText(automovel.getModelo());
+									jTextpreco.setText(Double.toString(automovel.getPreco()));
+									JOptionPane.showMessageDialog(janelaAutomoveis,
+											"Automovel não encontrado encontrado!");
+								}
+								
+							} catch (Exception e2) {
+								// TODO: handle exception
+							}
+						}
+					});
+					
+					botaoAtualizar.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							try {
+								if(!automovel.atualizarAuto(Integer.parseInt(jTextcodigo.getText()) ,jTextfabricante.getText(), jTextmodelo.getText(), Double.parseDouble(jTextpreco.getText()))) {
+									JOptionPane.showMessageDialog(janelaAutomoveis, "Não foi possivel atualizar o cliente");
+								}else {
+									JOptionPane.showMessageDialog(janelaAutomoveis, "Atualização realizada");
+								}
+								
+							} catch (Exception e2) {
+								// TODO: handle exception
+							}
+						}
+					});
+					
+					botaoCadastrar.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							try {
+								if(!automovel.consultarAuto(Integer.parseInt(jTextcodigo.getText()))) {
+									automovel.cadastrarAuto(Integer.parseInt(jTextcodigo.getText()), jTextfabricante.getText(), jTextmodelo.getText(), Double.parseDouble(jTextpreco.getText()));
+								}else {
+									JOptionPane.showMessageDialog(janelaAutomoveis, "Usuario ja cadastrado");
+								}
+							} catch (Exception e2) {
+								// TODO: handle exception
+							}
+						}
+					});
+					Negocio negocio = new Negocio();
+					botaoVender.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							if (automovel.consultarAuto(Integer.parseInt(jTextcodigo.getText()))){
+									if(!negocio.consultarNegocio(jTextcodigo.getText())) {
+										JFrame janelaVenda = CriarJanelaVenda(automovel);
+										janelaVenda.setVisible(true);
+									}else {
+										JOptionPane.showMessageDialog(janelaAutomoveis, "Veiculo indisponível");
+									}
+							}else {
+								JOptionPane.showMessageDialog(janelaAutomoveis, "Veiculo Não encontrado");
+							}
+						}
+
+					});
 		
 				return janelaAutomoveis;
 	}
-	
+	//Janela venda
+	public static JFrame CriarJanelaVenda(Automovel automovel){
+		JFrame janelaVenda = new JFrame("Venda"); // Janela Normal
+		janelaVenda.setResizable(false); // A janela não poderá ter o tamanho ajustado
+		janelaVenda.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		janelaVenda.setSize(500, 360); // Define tamanho da janela
+		
+		// Define o layout da janela
+		Container caixa = janelaVenda.getContentPane();
+		caixa.setLayout(null);
+		
+		// Define os labels dos campos
+			JLabel labelCpf      = new JLabel("CPF Cliente: ");
+			JLabel labelMatricula  = new JLabel("Mat. Vendedor: ");
+			JLabel labelCodigo     = new JLabel("Cod. Veiculo: ");
+			JLabel labelPreco       = new JLabel("Preco: ");
+			JLabel labelData = new JLabel("Data: ");
+		
+		// Posiciona os labels na janela
+			labelCpf.setBounds		(50, 40,  100, 20); // coluna, linha, largura, tamanho
+			labelMatricula.setBounds	(50, 70,  100, 20); // coluna, linha, largura, tamanho
+			labelCodigo.setBounds		(50, 100, 100, 20);
+			labelPreco.setBounds		(50, 130, 100, 20);
+			labelData.setBounds		(50, 160, 100, 20);
+			
+		// Define os input box
+			JTextField jTextCpf     = new JTextField();
+			JTextField jTextMatricula = new JTextField();
+			JTextField jTextCodigo     = new JTextField();
+			JTextField jTextPreco      = new JTextField();
+			JTextField jTextData = new JTextField();
+		
+		// Define se os campos estão habilitados ou não no início
+			jTextCpf.setEnabled(true);
+			jTextMatricula.setEnabled(true);
+			jTextCodigo.setEnabled(true);
+			jTextPreco.setEnabled(true);
+		
+		// Posiciona os input box
+			jTextCpf.setBounds     (120, 40  , 160, 20);
+			jTextMatricula.setBounds (120, 70  , 160, 20);
+			jTextCodigo.setBounds     (120, 100 , 160, 20);
+			jTextPreco.setBounds      (120, 130 , 160, 20);
+			jTextData.setBounds			(120, 160 , 160, 20);
+		
+		// Adiciona os rótulos e os input box na janela
+			janelaVenda.add(labelCpf);
+			janelaVenda.add(labelMatricula);
+			janelaVenda.add(labelCodigo);
+			janelaVenda.add(labelPreco);
+			janelaVenda.add(jTextCpf);
+			janelaVenda.add(jTextMatricula);
+			janelaVenda.add(jTextCodigo);
+			janelaVenda.add(jTextPreco);
+			janelaVenda.add(labelData);
+			janelaVenda.add(jTextData);
+			
+			jTextCodigo.setText(Integer.toString(automovel.getCodigo()));
+			
+			JButton botaoConfirmacaoButton = new JButton();
+			
+			Cliente cliente = new Cliente();
+			Funcionario funcionario = new Funcionario();
+			Negocio negocio = new Negocio();
+
+			botaoConfirmacaoButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					try {
+						if(cliente.consultarCliente(jTextCpf.getText())) {
+							if(funcionario.consultarFuncionario(jTextMatricula.getText())) {
+								negocio.cadastrarNegocio(jTextCpf.getText(), jTextMatricula.getText(), automovel.getCodigo(), jTextData.getText(), Double.parseDouble(jTextPreco.getText()));
+							}else {
+								JOptionPane.showMessageDialog(janelaVenda, "Funcionario não encontrado");
+							}
+						}else {
+							JOptionPane.showMessageDialog(janelaVenda, "Cliente não encontrado");
+						}
+					} catch (Exception e2) {
+						// TODO: handle exception
+					}
+					
+				}
+			});
+			
+			
+		
+		return janelaVenda;
+	}
 	//Janela Clientes
 		public static JFrame criarJanelaClientes () {
 			// Define a janelaClientes
@@ -359,7 +526,6 @@ public class Telas {
 									}else {
 										JOptionPane.showMessageDialog(janelaFuncionarios, "Atualização realizada");
 									}
-									
 								} catch (Exception e2) {
 									// TODO: handle exception
 								}

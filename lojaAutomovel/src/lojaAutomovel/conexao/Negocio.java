@@ -77,16 +77,16 @@ public class Negocio {
 	}
 	
 	
-	public boolean consultarNegocioCliente(String cpf) {
+	public boolean consultarNegocio(String codigo) {
 		Connection conexao = null;
 		try {
 			conexao = Conexao.conectaBanco();
 			// Define a consulta
-			String sql = "select * from negocio where cpf=?";
+			String sql = "select * from negocio where codigo=?";
 			// Prepara a consulta
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			// Define os par�metros da consulta
-			ps.setString(1, cpf); // Substitui o primeiro par�metro da consulta pela ag�ncia informada
+			ps.setString(1, codigo); // Substitui o primeiro par�metro da consulta pela ag�ncia informada
 			// Executa a consulta, resultando em um objeto da classe ResultSet
 			ResultSet rs = ps.executeQuery();
 			if (!rs.isBeforeFirst()) { // Verifica se n�o est� antes do primeiro registro
@@ -145,5 +145,37 @@ public class Negocio {
 		}
 	}
 	
-
+	public boolean consultarNegocioCliente(String cpf) {
+		Connection conexao = null;
+		try {
+			conexao = Conexao.conectaBanco();
+			// Define a consulta
+			String sql = "select * from negocio where cpf=?";
+			// Prepara a consulta
+			PreparedStatement ps = conexao.prepareStatement(sql);
+			// Define os par�metros da consulta
+			ps.setString(1, cpf); // Substitui o primeiro par�metro da consulta pela ag�ncia informada
+			// Executa a consulta, resultando em um objeto da classe ResultSet
+			ResultSet rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) { // Verifica se n�o est� antes do primeiro registro
+				System.out.println(" Funcionario nao tem vendas no banco!");
+				return false; // Conta n�o cadastrada
+			} else {
+				// Efetua a leitura do registro da tabela
+				while (rs.next()) {
+					this.cpf = rs.getString("cpf");
+					this.matricula = rs.getString("matricula");
+					this.codigo = rs.getInt("codigo");
+					this.dataCompra = rs.getString("dataCompra");
+					this.precoPago = rs.getDouble("precoPago");
+				}
+				return true;
+			}
+		} catch (SQLException erro) {
+			System.out.println("Erro ao consultar negocio: " + erro.toString());
+			return false;
+		} finally {
+			Conexao.fechaConexao(conexao);
+		}
+	}
 }
