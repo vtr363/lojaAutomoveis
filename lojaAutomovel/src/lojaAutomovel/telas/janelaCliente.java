@@ -111,7 +111,7 @@ public class janelaCliente {
 							botaoAtualizar.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
 									try {
-										if(JOptionPane.showConfirmDialog(janelaFuncionarios, "Tem Certeza?") == 0) {
+										if(JOptionPane.showConfirmDialog(janelaClientes, "Tem Certeza?") == 0) {
 											
 											if(!cliente.atualizarCliente(jTextNome.getText() ,jTextCPF.getText(), jTextCidade.getText(), jTextEstado.getText())) {
 												JOptionPane.showMessageDialog(janelaClientes, "Não foi possivel atualizar o cliente");
