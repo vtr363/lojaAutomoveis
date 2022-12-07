@@ -148,8 +148,8 @@ public class Telas {
 					janelaAutomoveis.add(botaoCadastrar);
 					
 					JButton botaoVender = new JButton("Vender");
-					botaoCadastrar.setBounds(300, 130, 100, 20);
-					janelaAutomoveis.add(botaoCadastrar);
+					botaoVender.setBounds(300, 130, 100, 20);
+					janelaAutomoveis.add(botaoVender);
 					
 					Automovel automovel = new Automovel();
 					
@@ -166,7 +166,7 @@ public class Telas {
 									jTextmodelo.setText(automovel.getModelo());
 									jTextpreco.setText(Double.toString(automovel.getPreco()));
 									JOptionPane.showMessageDialog(janelaAutomoveis,
-											"Automovel não encontrado encontrado!");
+											"Automovel encontrado!");
 								}
 								
 							} catch (Exception e2) {
@@ -196,7 +196,7 @@ public class Telas {
 								if(!automovel.consultarAuto(Integer.parseInt(jTextcodigo.getText()))) {
 									automovel.cadastrarAuto(Integer.parseInt(jTextcodigo.getText()), jTextfabricante.getText(), jTextmodelo.getText(), Double.parseDouble(jTextpreco.getText()));
 								}else {
-									JOptionPane.showMessageDialog(janelaAutomoveis, "Usuario ja cadastrado");
+									JOptionPane.showMessageDialog(janelaAutomoveis, "Veiculo já cadastrado");
 								}
 							} catch (Exception e2) {
 								// TODO: handle exception
@@ -235,17 +235,17 @@ public class Telas {
 		
 		// Define os labels dos campos
 			JLabel labelCpf      = new JLabel("CPF Cliente: ");
-			JLabel labelMatricula  = new JLabel("Mat. Vendedor: ");
+			JLabel labelMatricula  = new JLabel("Mat.Vendedor: ");
 			JLabel labelCodigo     = new JLabel("Cod. Veiculo: ");
 			JLabel labelPreco       = new JLabel("Preco: ");
 			JLabel labelData = new JLabel("Data: ");
 		
 		// Posiciona os labels na janela
-			labelCpf.setBounds		(50, 40,  100, 20); // coluna, linha, largura, tamanho
-			labelMatricula.setBounds	(50, 70,  100, 20); // coluna, linha, largura, tamanho
-			labelCodigo.setBounds		(50, 100, 100, 20);
-			labelPreco.setBounds		(50, 130, 100, 20);
-			labelData.setBounds		(50, 160, 100, 20);
+			labelCpf.setBounds		(50, 40,  120, 20); // coluna, linha, largura, tamanho
+			labelMatricula.setBounds	(50, 70,  120, 20); // coluna, linha, largura, tamanho
+			labelCodigo.setBounds		(50, 100, 120, 20);
+			labelPreco.setBounds		(50, 130, 120, 20);
+			labelData.setBounds		(50, 160, 120, 20);
 			
 		// Define os input box
 			JTextField jTextCpf     = new JTextField();
@@ -261,11 +261,11 @@ public class Telas {
 			jTextPreco.setEnabled(true);
 		
 		// Posiciona os input box
-			jTextCpf.setBounds     (120, 40  , 160, 20);
-			jTextMatricula.setBounds (120, 70  , 160, 20);
-			jTextCodigo.setBounds     (120, 100 , 160, 20);
-			jTextPreco.setBounds      (120, 130 , 160, 20);
-			jTextData.setBounds			(120, 160 , 160, 20);
+			jTextCpf.setBounds     (160, 40  , 160, 20);
+			jTextMatricula.setBounds (160, 70  , 160, 20);
+			jTextCodigo.setBounds     (160, 100 , 160, 20);
+			jTextPreco.setBounds      (160, 130 , 160, 20);
+			jTextData.setBounds			(160, 160 , 160, 20);
 		
 		// Adiciona os rótulos e os input box na janela
 			janelaVenda.add(labelCpf);
