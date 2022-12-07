@@ -95,6 +95,8 @@ public class janelaVendas {
 								if(cliente.consultarCliente(jTextCpf.getText())) {
 									if(funcionario.consultarFuncionario(jTextMatricula.getText())) {
 										negocio.cadastrarNegocio(jTextCpf.getText(), jTextMatricula.getText(), automovel.getCodigo(), jTextData.getText(), Double.parseDouble(jTextPreco.getText()));
+										automovel.removerAuto(automovel.getCodigo());
+										JOptionPane.showMessageDialog(janelaVenda, "Venda Concluida?");
 										janelaVenda.dispose();
 									}else {
 										JOptionPane.showMessageDialog(janelaVenda, "Funcionario não encontrado");
