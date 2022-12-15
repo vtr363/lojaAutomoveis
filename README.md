@@ -3,16 +3,14 @@
 Projeto de uma loja de automoveis feito para a aula de programação do curso de ADS. <br>
 Foi utilizado java para backend, swing para telas e mysql para o banco de dados
 
-> Tabelas SQL
-```sql
--- phpMyAdmin SQL Dump
--- version 5.2.0
--- https://www.phpmyadmin.net/
---
--- Host: localhost
--- Versão do servidor: 10.4.25-MariaDB
--- versão do PHP: 8.1.10
+ ## Membros do grupo:
+Victor Miguel Rocha<br>
+Pedro sartori<br>
+Lucas Oliveira<br>
+Leandro Arraes
 
+## Tabelas SQL
+```sql
 CREATE DATABASE AutoVendas;
 USING AutoVendas;
 --
@@ -25,7 +23,7 @@ CREATE TABLE `automovel` (
   `modelo` varchar(50) NOT NULL,
   `preco` double NOT NULL,
   `statusVenda` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+);
 
 --
 -- Extraindo dados da tabela `automovel`
@@ -51,7 +49,7 @@ CREATE TABLE `cliente` (
   `Nome` varchar(20) NOT NULL,
   `Cidade` varchar(30) NOT NULL,
   `Estado` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+);
 
 --
 -- Extraindo dados da tabela `cliente`
@@ -74,7 +72,7 @@ CREATE TABLE `funcionario` (
   `CPF` char(11) NOT NULL,
   `Matricula` char(8) NOT NULL,
   `cargo` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+);
 
 --
 -- Extraindo dados da tabela `funcionario`
@@ -96,7 +94,7 @@ CREATE TABLE `negocio` (
   `Codigo` int(11) DEFAULT NULL,
   `DataCompra` varchar(11) DEFAULT NULL,
   `PrecoPago` float DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+);
 
 --
 -- Índices para tabela `automovel`
