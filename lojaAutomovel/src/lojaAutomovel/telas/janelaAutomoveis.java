@@ -49,9 +49,9 @@ public class janelaAutomoveis {
 			
 			// Define se os campos estão habilitados ou não no início
 				jTextcodigo.setEnabled(true);
-				jTextfabricante.setEnabled(true);
-				jTextmodelo.setEnabled(true);
-				jTextpreco.setEnabled(true);
+				jTextfabricante.setEnabled(false);
+				jTextmodelo.setEnabled(false);
+				jTextpreco.setEnabled(false);
 			
 			// Posiciona os input box
 				jTextcodigo.setBounds     (120, 40  , 160, 20);
@@ -82,10 +82,12 @@ public class janelaAutomoveis {
 				JButton botaoCadastrar = new JButton("Cadastrar");
 				botaoCadastrar.setBounds(300, 100, 100, 20);
 				janelaAutomoveis.add(botaoCadastrar);
+				botaoCadastrar.setEnabled(false);
 				
 				JButton botaoVender = new JButton("Vender");
 				botaoVender.setBounds(300, 130, 100, 20);
 				janelaAutomoveis.add(botaoVender);
+				botaoVender.setEnabled(false);
 				
 				JButton botaoLimpar = new JButton("Limpar");
 				botaoLimpar.setBounds(300, 190, 100, 20);
@@ -100,15 +102,23 @@ public class janelaAutomoveis {
 							if(!automovel.consultarAuto(Integer.parseInt(jTextcodigo.getText()))) {
 								JOptionPane.showMessageDialog(janelaAutomoveis,
 										"Automovel não encontrado, tente novamente.");
+										
+								botaoCadastrar.setEnabled(true);
 							}else {
 								
 								jTextcodigo.setText(Integer.toString(automovel.getCodigo()));
 								jTextfabricante.setText(automovel.getFabricante());
 								jTextmodelo.setText(automovel.getModelo());
 								jTextpreco.setText(Double.toString(automovel.getPreco()));
+
+								jTextfabricante.setEnabled(true);
+								jTextmodelo.setEnabled(true);
+								jTextpreco.setEnabled(true);
+								botaoVender.setEnabled(true);
+								botaoAtualizar.setEnabled(true);
+								botaoCadastrar.setEnabled(false);
 								JOptionPane.showMessageDialog(janelaAutomoveis,
 										"Automovel encontrado!");
-								botaoAtualizar.setEnabled(true);
 							}
 							
 						} catch (Exception e2) {
@@ -143,6 +153,7 @@ public class janelaAutomoveis {
 									automovel.cadastrarAuto(Integer.parseInt(jTextcodigo.getText()), jTextfabricante.getText(), jTextmodelo.getText(), Double.parseDouble(jTextpreco.getText()));
 								}else {
 									JOptionPane.showMessageDialog(janelaAutomoveis, "Veiculo já cadastrado");
+									botaoCadastrar.setEnabled(false);
 								}
 							}
 						} catch (Exception e2) {
@@ -170,14 +181,12 @@ public class janelaAutomoveis {
 				
 				botaoLimpar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(JOptionPane.showConfirmDialog(janelaAutomoveis, "Tem Certeza?") == 0) {
-							jTextcodigo.setText(""); // Limpar campo
-							jTextfabricante.setText(""); // Limpar campo
-							jTextmodelo.setText(""); // Limpar campo
-							jTextpreco.setText("");
-							
-							jTextcodigo.requestFocus(); // Colocar o foco em um campo
-						}
+						jTextcodigo.setText(""); // Limpar campo
+						jTextfabricante.setText(""); // Limpar campo
+						jTextmodelo.setText(""); // Limpar campo
+						jTextpreco.setText("");
+						
+						jTextcodigo.requestFocus(); // Colocar o foco em um campo
 					}
 				});
 				

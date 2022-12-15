@@ -33,8 +33,8 @@ public class janelaCliente {
 							JLabel labelEstado   = new JLabel("Estado: ");
 						
 						// Posiciona os labels na janela
-							labelNome.setBounds	  (50, 40,  100, 20); // coluna, linha, largura, tamanho
-							labelCPF.setBounds	  (50, 70,  100, 20); // coluna, linha, largura, tamanho
+							labelCPF.setBounds	  (50, 40,  100, 20); // coluna, linha, largura, tamanho
+							labelNome.setBounds	  (50, 70,  100, 20); // coluna, linha, largura, tamanho
 							labelCidade.setBounds (50, 100, 100, 20);
 							labelEstado.setBounds (50, 130, 100, 20);
 						
@@ -45,14 +45,14 @@ public class janelaCliente {
 							JTextField jTextEstado   = new JTextField();
 						
 						// Define se os campos estão habilitados ou não no início
-							jTextNome.setEnabled(true);
 							jTextCPF.setEnabled(true);
-							jTextCidade.setEnabled(true);
-							jTextEstado.setEnabled(true);
+							jTextNome.setEnabled(false);
+							jTextCidade.setEnabled(false);
+							jTextEstado.setEnabled(false);
 						
 						// Posiciona os input box
-							jTextNome.setBounds       (120,  40 , 160, 20);
-							jTextCPF.setBounds        (120,  70 , 160, 20);
+							jTextCPF.setBounds        (120,  40 , 160, 20);
+							jTextNome.setBounds       (120,  70 , 160, 20);
 							jTextCidade.setBounds     (120, 100 , 160, 20);
 							jTextEstado.setBounds     (120, 130 , 160, 20);
 						
@@ -79,6 +79,7 @@ public class janelaCliente {
 							JButton botaoCadastrar = new JButton("Cadastrar");
 							botaoCadastrar.setBounds(300, 100, 100, 20);
 							janelaClientes.add(botaoCadastrar);	
+							botaoCadastrar.setEnabled(false);
 							
 							JButton botaoLimpar = new JButton("Limpar");
 							botaoLimpar.setBounds(300, 180, 100, 20);
@@ -92,11 +93,18 @@ public class janelaCliente {
 										if(!cliente.consultarCliente(jTextCPF.getText())) {
 											JOptionPane.showMessageDialog(janelaClientes,
 													"Cliente não encontrado, tente novamente.");
+											botaoCadastrar.setEnabled(true);
 										}else {
 											
 											jTextCidade.setText(cliente.getCidade());
 											jTextEstado.setText(cliente.getEstado());
 											jTextNome.setText(cliente.getNome());
+
+											jTextNome.setEnabled(true);
+											jTextCidade.setEnabled(true);
+											jTextEstado.setEnabled(true);
+											botaoCadastrar.setEnabled(false);
+											botaoAtualizar.setEnabled(true);
 											JOptionPane.showMessageDialog(janelaClientes,
 													"Cliente encontrado!");
 											botaoAtualizar.setEnabled(true);
@@ -135,6 +143,7 @@ public class janelaCliente {
 												cliente.cadastrarCliente(jTextCPF.getText(), jTextNome.getText(), jTextCidade.getText(), jTextEstado.getText());
 											}else {
 												JOptionPane.showMessageDialog(janelaClientes, "Usuario ja cadastrado");
+												botaoCadastrar.setEnabled(false);
 											}
 										}
 									} catch (Exception e2) {
@@ -145,15 +154,13 @@ public class janelaCliente {
 						
 							botaoLimpar.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
-									if(JOptionPane.showConfirmDialog(janelaClientes, "Tem Certeza?") == 0) {
-										
-										jTextNome.setText(""); // Limpar campo
-										jTextCPF.setText(""); // Limpar campo
-										jTextCidade.setText(""); // Limpar campo
-										jTextEstado.setText("");
-										
-										jTextCPF.requestFocus(); // Colocar o foco em um campo
-									}
+									jTextNome.setText(""); // Limpar campo
+									jTextCPF.setText(""); // Limpar campo
+									jTextCidade.setText(""); // Limpar campo
+									jTextEstado.setText("");
+									
+									jTextCPF.requestFocus(); // Colocar o foco em um campo
+									
 								}
 							});
 							

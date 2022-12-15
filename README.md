@@ -1,5 +1,8 @@
 # lojaAutomoveis
 
+Projeto de uma loja de automoveis feito para a aula de programação do curso de ADS. <br>
+Foi utilizado java para backend, swing para telas e mysql para o banco de dados
+
 > Tabelas SQL
 ```sql
 -- phpMyAdmin SQL Dump
@@ -7,26 +10,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 07-Dez-2022 às 17:26
 -- Versão do servidor: 10.4.25-MariaDB
 -- versão do PHP: 8.1.10
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Banco de dados: `AutoVendas`
---
-
--- --------------------------------------------------------
-
+CREATE DATABASE AutoVendas;
+USING AutoVendas;
 --
 -- Estrutura da tabela `automovel`
 --
@@ -54,8 +42,6 @@ INSERT INTO `automovel` (`Codigo`, `Fabricante`, `modelo`, `preco`, `statusVenda
 (18, 'Chevrolet', 'Astra ', 52010, 0),
 (20, 'Fiat', 'Uno', 20100, 0);
 
--- --------------------------------------------------------
-
 --
 -- Estrutura da tabela `cliente`
 --
@@ -79,8 +65,6 @@ INSERT INTO `cliente` (`CPF`, `Nome`, `Cidade`, `Estado`) VALUES
 ('05', 'Air Supply', 'Brasilia', 'DF'),
 ('06', 'Mackenzie', 'São Paulo', 'SP');
 
--- --------------------------------------------------------
-
 --
 -- Estrutura da tabela `funcionario`
 --
@@ -102,8 +86,6 @@ INSERT INTO `funcionario` (`Nome`, `CPF`, `Matricula`, `cargo`) VALUES
 ('maria', '12', '0003', 'vendedor'),
 ('Matheus', '13', '0004', 'vendedor');
 
--- --------------------------------------------------------
-
 --
 -- Estrutura da tabela `negocio`
 --
@@ -115,10 +97,6 @@ CREATE TABLE `negocio` (
   `DataCompra` varchar(11) DEFAULT NULL,
   `PrecoPago` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Índices para tabelas despejadas
---
 
 --
 -- Índices para tabela `automovel`
@@ -149,10 +127,6 @@ ALTER TABLE `negocio`
   ADD KEY `FK03` (`Codigo`);
 
 --
--- Restrições para despejos de tabelas
---
-
---
 -- Limitadores para a tabela `negocio`
 --
 ALTER TABLE `negocio`
@@ -160,9 +134,5 @@ ALTER TABLE `negocio`
   ADD CONSTRAINT `FK02` FOREIGN KEY (`CPF`) REFERENCES `cliente` (`CPF`),
   ADD CONSTRAINT `FK03` FOREIGN KEY (`Codigo`) REFERENCES `automovel` (`Codigo`);
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 ```

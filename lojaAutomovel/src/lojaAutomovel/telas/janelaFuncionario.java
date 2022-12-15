@@ -24,29 +24,29 @@ public class janelaFuncionario {
 			Container caixa = janelaFuncionarios.getContentPane();
 			caixa.setLayout(null);
 		
-		// Define os labels dos campos
+			// Define os labels dos campos
+			JLabel labelMatricula = new JLabel("Matricula: ");
 			JLabel labelNome      = new JLabel("Nome: ");
 			JLabel labelCPF       = new JLabel("CPF: ");
-			JLabel labelMatricula = new JLabel("Matricula: ");
 			JLabel labelCargo     = new JLabel("Cargo: ");
 		
-		// Posiciona os labels na janela
-			labelNome.setBounds           (50, 40  , 100, 20); // coluna, linha, largura, tamanho
-			labelCPF.setBounds            (50, 70  , 100, 20); // coluna, linha, largura, tamanho
-			labelMatricula.setBounds      (50, 100 , 100, 20);
+			// Posiciona os labels na janela
+			labelMatricula.setBounds      (50, 40 , 100, 20);
+			labelNome.setBounds           (50, 70  , 100, 20); // coluna, linha, largura, tamanho
+			labelCPF.setBounds            (50, 100  , 100, 20); // coluna, linha, largura, tamanho
 			labelCargo.setBounds          (50, 130 , 100, 20);
 		
 		// Define os input box
-			JTextField jTextNome      = new JTextField();
-			JTextField jTextCPF       = new JTextField();
 			JTextField jTextMatricula = new JTextField();
+			JTextField jTextCPF       = new JTextField();
+			JTextField jTextNome      = new JTextField();
 			JTextField jTextCargo     = new JTextField();
 		
 		// Define se os campos estão habilitados ou não no início
 			jTextNome.setEnabled(true);
-			jTextCPF.setEnabled(true);
-			jTextMatricula.setEnabled(true);
-			jTextCargo.setEnabled(true);
+			jTextCPF.setEnabled(false);
+			jTextMatricula.setEnabled(false);
+			jTextCargo.setEnabled(false);
 		
 		// Posiciona os input box
 			jTextNome.setBounds       (120, 40  , 160, 20);
@@ -77,6 +77,7 @@ public class janelaFuncionario {
 			JButton botaoCadastrar = new JButton("Cadastrar");
 			botaoCadastrar.setBounds(300, 100, 100, 20);
 			janelaFuncionarios.add(botaoCadastrar);	
+			botaoCadastrar.setEnabled(false);
 			
 			JButton botaoLimpar = new JButton("Limpar");
 			botaoLimpar.setBounds(300, 190, 100, 20);
@@ -91,14 +92,21 @@ public class janelaFuncionario {
 						if(JOptionPane.showConfirmDialog(janelaFuncionarios, "Tem Certeza?") == 0) {
 							
 							if(!funcionario.consultarFuncionario(jTextMatricula.getText())) {
-								JOptionPane.showMessageDialog(janelaFuncionarios,
-										"Funcionario não encontrado, tente novamente.");
+								JOptionPane.showMessageDialog(janelaFuncionarios, "Funcionario não encontrado.");
+								botaoCadastrar.setEnabled(true);
+
 							}else {
 								
 								jTextMatricula.setText(funcionario.getMatricula());
 								jTextCargo.setText(funcionario.getCargo());
 								jTextNome.setText(funcionario.getNome());
 								jTextCPF.setText(funcionario.getCpf());
+
+								jTextCPF.setEnabled(true);
+								jTextMatricula.setEnabled(true);
+								jTextCargo.setEnabled(true);
+								botaoAtualizar.setEnabled(true);
+								botaoCadastrar.setEnabled(false);
 								JOptionPane.showMessageDialog(janelaFuncionarios,
 										"Funcionario encontrado!");
 								botaoAtualizar.setEnabled(true);
@@ -138,6 +146,7 @@ public class janelaFuncionario {
 								JOptionPane.showMessageDialog(janelaFuncionarios, "Cadastrado realizado!");
 							}else {
 								JOptionPane.showMessageDialog(janelaFuncionarios, "Funcionario ja cadastrado");
+								botaoCadastrar.setEnabled(false);
 							}
 						}
 					} catch (Exception e2) {
