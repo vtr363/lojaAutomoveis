@@ -43,15 +43,15 @@ public class janelaFuncionario {
 			JTextField jTextCargo     = new JTextField();
 		
 		// Define se os campos estão habilitados ou não no início
-			jTextNome.setEnabled(true);
+			jTextMatricula.setEnabled(true);
+			jTextNome.setEnabled(false);
 			jTextCPF.setEnabled(false);
-			jTextMatricula.setEnabled(false);
 			jTextCargo.setEnabled(false);
 		
 		// Posiciona os input box
-			jTextNome.setBounds       (120, 40  , 160, 20);
-			jTextCPF.setBounds        (120, 70  , 160, 20);
-			jTextMatricula.setBounds  (120, 100 , 160, 20);
+			jTextMatricula.setBounds  (120, 40 , 160, 20);
+			jTextNome.setBounds       (120, 70  , 160, 20);
+			jTextCPF.setBounds        (120, 100  , 160, 20);
 			jTextCargo.setBounds      (120, 130 , 160, 20);
 		
 		// Adiciona os rótulos e os input box na janela
@@ -89,29 +89,29 @@ public class janelaFuncionario {
 			botaoConsultar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					try {
-						if(JOptionPane.showConfirmDialog(janelaFuncionarios, "Tem Certeza?") == 0) {
 							
-							if(!funcionario.consultarFuncionario(jTextMatricula.getText())) {
-								JOptionPane.showMessageDialog(janelaFuncionarios, "Funcionario não encontrado.");
-								botaoCadastrar.setEnabled(true);
+						if(!funcionario.consultarFuncionario(jTextMatricula.getText())) {
+							JOptionPane.showMessageDialog(janelaFuncionarios, "Funcionario não encontrado.");
+							botaoCadastrar.setEnabled(true);
 
-							}else {
-								
-								jTextMatricula.setText(funcionario.getMatricula());
-								jTextCargo.setText(funcionario.getCargo());
-								jTextNome.setText(funcionario.getNome());
-								jTextCPF.setText(funcionario.getCpf());
+						}else {
+							
+							jTextMatricula.setText(funcionario.getMatricula());
+							jTextCargo.setText(funcionario.getCargo());
+							jTextNome.setText(funcionario.getNome());
+							jTextCPF.setText(funcionario.getCpf());
 
-								jTextCPF.setEnabled(true);
-								jTextMatricula.setEnabled(true);
-								jTextCargo.setEnabled(true);
-								botaoAtualizar.setEnabled(true);
-								botaoCadastrar.setEnabled(false);
-								JOptionPane.showMessageDialog(janelaFuncionarios,
-										"Funcionario encontrado!");
-								botaoAtualizar.setEnabled(true);
-							}
+							jTextCPF.setEnabled(true);
+							jTextNome.setEnabled(true);
+							jTextMatricula.setEnabled(true);
+							jTextCargo.setEnabled(true);
+							botaoAtualizar.setEnabled(true);
+							botaoCadastrar.setEnabled(false);
+							JOptionPane.showMessageDialog(janelaFuncionarios,
+									"Funcionario encontrado!");
+							botaoAtualizar.setEnabled(true);
 						}
+						
 						
 					} catch (Exception e2) {
 						// TODO: handle exception
